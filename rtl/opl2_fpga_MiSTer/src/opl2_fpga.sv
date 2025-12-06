@@ -43,7 +43,20 @@
 
 module opl2_fpga
     import opl2_pkg::*;
-(
+#(
+    /*
+     * Original OPL2 used a 3.579545MHz master clock, divided by 72 giving a
+     * sample clock of 49.7159KHz. Choose CLK_DIV_COUNT to get as close to this as possible.
+     */
+    parameter CLK_FREQ, // set this to master clk frequency
+    parameter CLK_DIV_COUNT, // set to get as close to 49.7159KHz sample freq as possible
+    parameter DAC_OUTPUT_WIDTH,
+    parameter INSTANTIATE_TIMERS, // set to 1 to use timers, 0 to save area
+    parameter INSTANTIATE_MASTER_HOST_CDC, // if clk and clk_host are not the same, set to 1
+    parameter INSTANTIATE_SAMPLE_DAC_CDC, // set to 1 to sync sample output to DAC clk
+    parameter INSTANTIATE_TRICK_SW_DETECTION, // needed on ao486 to fool games into detecting chip
+    parameter NUM_LEDS // connected to key-on starting at 0
+) (
     input wire clk, // opl3 master clk
     input wire clk_host, // if different from clk, set INSTANTIATE_MASTER_HOST_CDC to 1
     input wire clk_dac, // only used if INSTANTIATE_SAMPLE_DAC_CDC is set
@@ -71,7 +84,10 @@ module opl2_fpga
         .reset
     );
 
-    host_if host_if (
+    host_if #(
+        .INSTANTIATE_MASTER_HOST_CDC(INSTANTIATE_MASTER_HOST_CDC),
+        .INSTANTIATE_TRICK_SW_DETECTION(INSTANTIATE_TRICK_SW_DETECTION)
+    ) host_if (
         .clk,
         .reset,
         .clk_host,
@@ -95,7 +111,10 @@ module opl2_fpga
         .clk_en(sample_clk_en)
     );
 
-    channels channels (
+    channels #(
+        .DAC_OUTPUT_WIDTH(DAC_OUTPUT_WIDTH),
+        .INSTANTIATE_SAMPLE_DAC_CDC(INSTANTIATE_SAMPLE_DAC_CDC)
+    ) channels (
         .clk,
         .reset,
         .clk_dac,
@@ -105,7 +124,9 @@ module opl2_fpga
         .sample
     );
 
-    leds leds (
+    leds #(
+        .NUM_LEDS(NUM_LEDS)
+    ) leds (
         .clk,
         .opl2_reg_wr,
         .led
@@ -116,7 +137,10 @@ module opl2_fpga
      */
     generate
     if (INSTANTIATE_TIMERS)
-        timers timers (
+        timers #(
+            .CLK_FREQ(CLK_FREQ),
+            .INSTANTIATE_MASTER_HOST_CDC(INSTANTIATE_MASTER_HOST_CDC)
+        ) timers (
             .clk,
             .clk_host,
             .reset,

@@ -43,7 +43,9 @@
 
 module leds
     import opl2_pkg::*;
-(
+#(
+    parameter NUM_LEDS
+) (
     input wire clk,
     input var opl2_reg_wr_t opl2_reg_wr,
     output logic [NUM_LEDS-1:0] led = 0

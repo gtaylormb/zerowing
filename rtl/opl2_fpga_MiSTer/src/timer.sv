@@ -45,7 +45,8 @@
 module timer
     import opl2_pkg::*;
 #(
-    parameter real TIMER_TICK_INTERVAL = 0 // time in seconds
+    parameter CLK_FREQ,
+    parameter real TIMER_TICK_INTERVAL // time in seconds
 ) (
     input wire clk,
     input wire reset,

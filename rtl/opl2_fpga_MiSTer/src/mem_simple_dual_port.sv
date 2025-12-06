@@ -42,8 +42,8 @@
 `default_nettype none
 
 module mem_simple_dual_port #(
-    parameter DATA_WIDTH = 0,
-    parameter DEPTH = 0,
+    parameter DATA_WIDTH,
+    parameter DEPTH,
     parameter OUTPUT_DELAY = 0, // 0, 1, or 2
     parameter logic [DATA_WIDTH-1:0] DEFAULT_VALUE = 0
 ) (

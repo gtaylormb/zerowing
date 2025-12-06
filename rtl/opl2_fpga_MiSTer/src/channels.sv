@@ -44,7 +44,10 @@
 
 module channels
     import opl2_pkg::*;
-(
+#(
+    parameter DAC_OUTPUT_WIDTH,
+    parameter INSTANTIATE_SAMPLE_DAC_CDC
+) (
     input wire clk,
     input wire reset,
     input wire clk_dac,
@@ -215,7 +218,10 @@ module channels
                 channel <= self.channel_acc_pre_clamp;
         end
 
-    dac_prep dac_prep (
+    dac_prep #(
+        .DAC_OUTPUT_WIDTH(DAC_OUTPUT_WIDTH),
+        .INSTANTIATE_SAMPLE_DAC_CDC(INSTANTIATE_SAMPLE_DAC_CDC)
+    ) dac_prep (
         .clk,
         .clk_dac,
         .channel_valid,

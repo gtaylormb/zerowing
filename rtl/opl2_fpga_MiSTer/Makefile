@@ -1,7 +1,7 @@
 # Find all Verilog/SystemVerilog files recursively
 SOURCES := $(shell find . -type f \( -name "*.v" -o -name "*.sv" \))
 
-SLANG_OPTIONS :=
+SLANG_OPTIONS := --top opl2_fpga
 
 # The default target: run slang on everything
 lint:

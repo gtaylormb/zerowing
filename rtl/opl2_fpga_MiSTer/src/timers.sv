@@ -43,7 +43,10 @@
 
 module timers
     import opl2_pkg::*;
-(
+#(
+    parameter CLK_FREQ,
+    parameter INSTANTIATE_MASTER_HOST_CDC
+) (
     input wire clk,
     input wire clk_host,
     input wire reset,
@@ -96,6 +99,7 @@ module timers
     end
 
     timer #(
+        .CLK_FREQ(CLK_FREQ),
         .TIMER_TICK_INTERVAL(TIMER1_TICK_INTERVAL)
     ) timer1_inst (
         .clk,
@@ -106,6 +110,7 @@ module timers
     );
 
     timer #(
+        .CLK_FREQ(CLK_FREQ),
         .TIMER_TICK_INTERVAL(TIMER2_TICK_INTERVAL)
     ) timer2_inst (
         .clk,

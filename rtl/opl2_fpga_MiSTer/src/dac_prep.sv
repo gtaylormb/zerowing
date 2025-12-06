@@ -43,7 +43,10 @@
 
 module dac_prep
     import opl2_pkg::*;
-(
+#(
+    parameter DAC_OUTPUT_WIDTH,
+    parameter INSTANTIATE_SAMPLE_DAC_CDC
+) (
     input wire clk,
     input wire clk_dac,
     input wire channel_valid,
@@ -51,6 +54,8 @@ module dac_prep
     output logic sample_valid,
     output logic signed [DAC_OUTPUT_WIDTH-1:0] sample
 );
+    localparam DAC_LEFT_SHIFT = signed'(DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 2) < 0 ? 0 : DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 3;
+
     logic sample_valid_opl2_p1 = 0;
     logic signed [DAC_OUTPUT_WIDTH-1:0] sample_opl2_p1 = 0;
 

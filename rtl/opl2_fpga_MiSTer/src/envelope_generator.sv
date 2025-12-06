@@ -48,7 +48,7 @@
 module envelope_generator
     import opl2_pkg::*;
 #(
-    parameter SILENCE = 511
+    parameter SILENCE = 511 // do not override
 )(
     input wire clk,
     input wire reset,

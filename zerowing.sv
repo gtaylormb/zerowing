@@ -853,7 +853,16 @@ reg signed [15:0] opl_sample;
 
 assign AUDIO_S = 1'b1;
 
-opl2_fpga opl2_fpga (
+opl2_fpga #(
+    .CLK_FREQ(70e6), // set this to master clk frequency
+    .CLK_DIV_COUNT(1408), // set to get as close to 49.7159KHz sample freq as possible
+    .DAC_OUTPUT_WIDTH(16),
+    .INSTANTIATE_TIMERS(1), // set to 1 to use timers, 0 to save area
+    .INSTANTIATE_MASTER_HOST_CDC(0), // if clk and clk_host are not the same, set to 1
+    .INSTANTIATE_SAMPLE_DAC_CDC(1), // set to 1 to sync sample output to DAC clk
+    .INSTANTIATE_TRICK_SW_DETECTION(0), // needed on ao486 to fool games into detecting chip
+    .NUM_LEDS(0) // connected to key-on starting at 0
+) opl2_fpga (
     .clk(clk_sys),
     .clk_host(clk_sys),
     .clk_dac(CLK_AUDIO),

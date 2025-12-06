@@ -46,8 +46,8 @@
 `default_nettype none
 
 module mem_simple_dual_port_async_read #(
-    parameter DATA_WIDTH = 0,
-    parameter DEPTH = 0,
+    parameter DATA_WIDTH,
+    parameter DEPTH,
     parameter logic [DATA_WIDTH-1:0] DEFAULT_VALUE = 0
 ) (
     input wire clka,

@@ -45,7 +45,7 @@
 /* altera message_off 10230 */
 
 module clk_div #(
-    parameter CLK_DIV_COUNT = 0
+    parameter CLK_DIV_COUNT
 )(
     input wire clk,
     output logic clk_en = 0

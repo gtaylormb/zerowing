@@ -44,24 +44,7 @@
 `default_nettype none
 
 package opl2_pkg;
-    /*
-     * Original OPL2 used a 3.579545MHz master clock, divided by 72 giving a
-     * sample clock of 49.7159KHz. Choose CLK_DIV_COUNT to get as close to this as possible.
-     */
-    localparam CLK_FREQ = 70e6; // set this to master clk frequency
-    localparam int CLK_DIV_COUNT = 1408; // set to get as close to 49.7159KHz sample freq as possible
-    localparam DAC_OUTPUT_WIDTH = 16;
-    localparam INSTANTIATE_TIMERS = 1; // set to 1 to use timers, 0 to save area
-    localparam INSTANTIATE_MASTER_HOST_CDC = 0; // if clk and clk_host are not the same, set to 1
-    localparam INSTANTIATE_SAMPLE_DAC_CDC = 1; // set to 1 to sync sample output to DAC clk
-    localparam INSTANTIATE_TRICK_SW_DETECTION = 0; // needed on ao486 to fool games into detecting chip
-    localparam NUM_LEDS = 0; // connected to key-on starting at 0
-
-    /*
-     * do not change below this line
-     */
-    localparam DESIRED_SAMPLE_FREQ = 49.7159e3; // do not change
-    localparam ACTUAL_SAMPLE_FREQ = CLK_FREQ/CLK_DIV_COUNT;
+    localparam DESIRED_SAMPLE_FREQ = 49.7159e3;
 
     localparam NUM_REG_PER_BANK = 'hF6;
     localparam REG_FILE_DATA_WIDTH = 8;
@@ -76,7 +59,6 @@ package opl2_pkg;
     localparam REG_FB_WIDTH = 3;
 
     localparam SAMPLE_WIDTH = 16;
-    localparam DAC_LEFT_SHIFT = signed'(DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 2) < 0 ? 0 : DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 3;
     localparam FINAL_ENV_WIDTH = 11;
     localparam OP_OUT_WIDTH = 13;
     localparam PHASE_ACC_WIDTH = 20;

@@ -8,7 +8,7 @@ slow->fast clock differences.
 `default_nettype none
 
 module cdc_vector_handshake_continuous #(
-    parameter DATA_WIDTH = 0
+    parameter DATA_WIDTH
 ) (
     input wire clk_in,
     input wire clk_out,

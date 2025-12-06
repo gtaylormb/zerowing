@@ -43,7 +43,10 @@
 
 module host_if
     import opl2_pkg::*;
-(
+#(
+    parameter INSTANTIATE_MASTER_HOST_CDC,
+    parameter INSTANTIATE_TRICK_SW_DETECTION
+) (
     input wire clk, // opl3 clk
     input wire reset,
     input wire clk_host,
@@ -151,7 +154,7 @@ module host_if
             .rd_n,
             .wr_n,
             .address,
-            .force_timer_overflowdin,
+            .din,
             .force_timer_overflow
         );
     else

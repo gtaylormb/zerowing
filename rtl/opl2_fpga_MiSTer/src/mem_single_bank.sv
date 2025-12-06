@@ -42,8 +42,8 @@
 `default_nettype none
 
 module mem_single_bank #(
-    parameter DATA_WIDTH = 0,
-    parameter DEPTH = 0,
+    parameter DATA_WIDTH,
+    parameter DEPTH,
     parameter OUTPUT_DELAY = 0, // 0, 1, or 2
     parameter DEFAULT_VALUE = 0
 ) (
