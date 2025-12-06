@@ -72,23 +72,43 @@ module opl2_fpga
     );
 
     host_if host_if (
-        .*
+        .clk,
+        .reset,
+        .clk_host,
+        .ic_n,
+        .cs_n,
+        .rd_n,
+        .wr_n,
+        .address,
+        .din,
+        .dout,
+        .opl2_reg_wr,
+        .status,
+        .force_timer_overflow
     );
 
     // pulse once per sample period
     clk_div #(
         .CLK_DIV_COUNT(CLK_DIV_COUNT)
     ) sample_clk_gen (
-        .clk_en(sample_clk_en),
-        .*
+        .clk,
+        .clk_en(sample_clk_en)
     );
 
     channels channels (
-        .*
+        .clk,
+        .reset,
+        .clk_dac,
+        .opl2_reg_wr,
+        .sample_clk_en,
+        .sample_valid,
+        .sample
     );
 
     leds leds (
-        .*
+        .clk,
+        .opl2_reg_wr,
+        .led
     );
 
     /*
@@ -97,7 +117,13 @@ module opl2_fpga
     generate
     if (INSTANTIATE_TIMERS)
         timers timers (
-            .*
+            .clk,
+            .clk_host,
+            .reset,
+            .opl2_reg_wr,
+            .irq_n,
+            .status,
+            .force_timer_overflow
         );
     else
         always_comb

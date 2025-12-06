@@ -143,11 +143,39 @@ module operator
     end
 
     calc_phase_inc calc_phase_inc (
-        .*
+        .clk,
+        .sample_clk_en,
+        .op_num,
+        .fnum,
+        .mult,
+        .block,
+        .vib,
+        .dvb,
+        .phase_inc_p2
     );
 
     envelope_generator envelope_generator (
-        .*
+        .clk,
+        .reset,
+        .sample_clk_en,
+        .op_num,
+        .ar,
+        .dr,
+        .sl,
+        .rr,
+        .tl,
+        .ksr,
+        .ksl,
+        .egt,
+        .am,
+        .dam,
+        .nts,
+        .fnum,
+        .mult,
+        .block,
+        .key_on_p0,
+        .env_p3,
+        .pg_reset_p2
     );
 
     /*
@@ -155,8 +183,16 @@ module operator
      * input (it is always operator 1 in any channel scheme)
      */
     phase_generator phase_generator (
+        .clk,
+        .sample_clk_en,
+        .op_num,
+        .phase_inc_p2,
+        .ws,
+        .env_p3,
+        .pg_reset_p2,
         .modulation_p1(use_feedback_p1 ? feedback_result_p1 : modulation_p1),
-        .*
+        .op_type_p0,
+        .out_p6
     );
 
     always_comb begin

@@ -172,8 +172,12 @@ module phase_generator
      * Bottom bits of phase accumulator are fractional and get dropped off.
      */
      calc_rhythm_phase calc_rhythm_phase (
+        .clk,
+        .sample_clk_en,
+        .op_num,
         .phase_p2(phase_acc_shifted_p2),
-        .*
+        .op_type_p0,
+        .rhythm_phase_p3
     );
 
     always_comb begin
@@ -186,9 +190,9 @@ module phase_generator
     end
 
     opl2_log_sine_lut log_sine_lut_inst (
+        .clk,
         .theta(theta_p3),
-        .out(log_sin_out_p4),
-    	.*
+        .out(log_sin_out_p4)
     );
 
     always_ff @(posedge clk)
@@ -206,9 +210,9 @@ module phase_generator
     end
 
     opl2_exp_lut exp_lut_inst (
+        .clk,
         .in(~post_gain_p4[7:0]),
-        .out(exp_out_p5),
-        .*
+        .out(exp_out_p5)
     );
 
     always_ff @(posedge clk) begin

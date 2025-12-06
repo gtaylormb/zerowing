@@ -110,7 +110,11 @@ module calc_phase_inc
      * Calculate vib_val
      */
     vibrato vibrato (
-        .*
+        .clk,
+        .sample_clk_en,
+        .fnum,
+        .dvb,
+        .vib_val_p2
     );
 endmodule
 `default_nettype wire

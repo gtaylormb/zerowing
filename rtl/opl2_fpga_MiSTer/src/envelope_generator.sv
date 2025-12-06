@@ -170,7 +170,11 @@ module envelope_generator
     );
 
     ksl_add_rom ksl_add_rom (
-        .*
+        .clk,
+        .fnum,
+        .block,
+        .ksl,
+        .ksl_add_p2
     );
 
     mem_single_bank #(
@@ -208,7 +212,16 @@ module envelope_generator
      * Calculate envelope shift
      */
     calc_envelope_shift calc_envelope_shift (
-        .*
+        .clk,
+        .sample_clk_en,
+        .op_num,
+        .ksr,
+        .nts,
+        .fnum,
+        .block,
+        .requested_rate_p0,
+        .rate_hi_p2,
+        .env_shift_p2
     );
 
     mem_single_bank #(
@@ -230,7 +243,11 @@ module envelope_generator
      * Calculate am_val
      */
     tremolo tremolo (
-        .*
+        .clk,
+        .sample_clk_en,
+        .op_num,
+        .dam,
+        .am_val_p2
     );
 
     always_comb begin

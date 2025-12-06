@@ -112,7 +112,13 @@ module channels
     );
 
     control_operators control_operators (
-        .*
+        .clk,
+        .reset,
+        .sample_clk_en,
+        .opl2_reg_wr,
+        .ryt,
+        .operator_out,
+        .ops_done_pulse
     );
 
     mem_single_bank #(
@@ -171,9 +177,7 @@ module channels
                 default:;
                 endcase
 
-            // OPL3 combines 4 channels into 2 in the analog domain in the YAC512. OPL2 is only 1 channel;
-            // do not double output.
-            next_self.channel_acc_pre_clamp = self.channel_acc_pre_clamp + signals.channel_out;
+            next_self.channel_acc_pre_clamp = self.channel_acc_pre_clamp + signals.channel_out*2;
 
             if (self.channel_num == NUM_CHANNELS_PER_BANK - 1)
                 next_state = DONE;
@@ -212,7 +216,12 @@ module channels
         end
 
     dac_prep dac_prep (
-        .*
+        .clk,
+        .clk_dac,
+        .channel_valid,
+        .channel,
+        .sample_valid,
+        .sample
     );
 
 endmodule

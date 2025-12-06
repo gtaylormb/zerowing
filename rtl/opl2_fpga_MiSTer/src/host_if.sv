@@ -144,7 +144,15 @@ module host_if
     generate
     if (INSTANTIATE_TRICK_SW_DETECTION)
         trick_sw_detection trick_sw_detection (
-            .*
+            .clk,
+            .clk_host,
+            .ic_n,
+            .cs_n,
+            .rd_n,
+            .wr_n,
+            .address,
+            .force_timer_overflowdin,
+            .force_timer_overflow
         );
     else
         always_comb force_timer_overflow = 0;

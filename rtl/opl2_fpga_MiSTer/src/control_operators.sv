@@ -375,8 +375,38 @@ module control_operators
      * back to back.
      */
     operator operator (
+        .clk,
+        .reset,
         .sample_clk_en(op_sample_clk_en),
-        .*
+        .op_num,
+        .fnum,
+        .mult,
+        .block,
+        .ws,
+        .vib,
+        .dvb,
+        .kon,
+        .ar,
+        .dr,
+        .sl,
+        .rr,
+        .tl,
+        .ksr,
+        .ksl,
+        .egt,
+        .am,
+        .dam,
+        .nts,
+        .bd,
+        .sd,
+        .tom,
+        .tc,
+        .hh,
+        .ryt,
+        .use_feedback_p1,
+        .fb_p1,
+        .modulation_p1,
+        .out_p6
     );
 
     pipeline_sr #(
